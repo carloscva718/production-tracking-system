@@ -9,10 +9,10 @@ conn = mysql.connector.connect(
 )
 cursor = conn.cursor()
 
-id_empleado = 202
-nombre = "Direccion Prueba"
-password_plano = "direccion123"
-rol = "direccion"
+id_empleado = 201
+nombre = "Jefa Producción"
+password_plano = "produccion123"
+rol = "produccion"
 
 password_cifrada = generate_password_hash(password_plano)
 
@@ -24,4 +24,4 @@ conn.commit()
 cursor.close()
 conn.close()
 
-print("Usuario admin creado correctamente")
+print("Usuario de producción creado correctamente")

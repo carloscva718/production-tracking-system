@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Esperando QR</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="cabecera">
+    <div class="marca">
+        Control de Producción <span>· PRODUCCIÓN</span>
+    </div>
+
+    <div class="sesion">
+        {{ session.nombre }}
+        <a href="/logout">Salir</a>
+    </div>
+</div>
+
+<div class="contenedor">
+
+    <h1 class="titulo">Esperando lote</h1>
+
+    <p class="descripcion">
+        Escanea el código QR del siguiente lote.
+    </p>
+
+</div>
+
+</body>
+</html>

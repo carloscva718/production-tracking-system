@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Producción - Control de Producción</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="cabecera">
+    <div class="marca">Control de Producción <span>· PRODUCCIÓN</span></div>
+    <div class="sesion">
+        {{ session.nombre }}
+        <a href="{{ url_for('logout') }}">Salir</a>
+    </div>
+</div>
+
+<div class="contenedor">
+
+    <span class="kicker">Panel de Producción</span>
+
+    <h1 class="titulo">Bienvenido {{ session.nombre }}</h1>
+
+    <p class="descripcion">
+        Selecciona la acción que deseas realizar.
+    </p>
+
+    <hr class="linea">
+
+    <div class="tarjeta">
+
+        <a href="{{ url_for('nuevo_lote') }}" class="btn-iniciar">
+            📦 Nuevo lote
+        </a>
+
+        <br><br>
+
+        <a href="#" class="btn-iniciar">
+            📋 Ver lotes
+        </a>
+
+        <br><br>
+
+        <a href="#" class="btn-iniciar">
+            🖨 Ver códigos QR
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Seleccionar estación</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="cabecera">
+    <div class="marca">
+        Control de Producción <span>· PRODUCCIÓN</span>
+    </div>
+
+    <div class="sesion">
+        {{ session.nombre }}
+        <a href="/logout">Salir</a>
+    </div>
+</div>
+
+<div class="contenedor">
+
+    <span class="kicker">Inicio de turno</span>
+
+    <h1 class="titulo">
+        Selecciona tu estación de trabajo
+    </h1>
+
+    <p class="descripcion">
+        Elige dónde vas a trabajar antes de comenzar.
+    </p>
+
+    <hr class="linea">
+
+    <div class="tarjeta">
+
+        <form method="POST">
+
+            <label class="campo-label">
+                Estación
+            </label>
+
+            <select name="maquina_id" required>
+
+                {% for maquina in maquinas %}
+                    <option value="{{ maquina.id_maquina }}">
+                        {{ maquina.nombre }}
+                    </option>
+                {% endfor %}
+
+            </select>
+
+            <button class="btn-iniciar">
+                Comenzar turno
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -15,7 +15,7 @@ def conectar_bd():
     return mysql.connector.connect(
         host="localhost",
         user="root",
-        password="1234",
+        password="TU_CONTRASEÑA",
         database="control_produccion"
     )
 
@@ -27,6 +27,37 @@ def login_requerido(f):
         return f(*args, **kwargs)
     return decorada
 
+@app.route('/seleccionar_estacion', methods=['GET', 'POST'])
+@login_requerido
+def seleccionar_estacion():
+
+    conn = conectar_bd()
+    cursor = conn.cursor(dictionary=True)
+
+    if request.method == 'POST':
+
+        session['maquina_id'] = request.form['maquina_id']
+
+        cursor.close()
+        conn.close()
+
+        return redirect(url_for('inicio'))
+
+    cursor.execute("""
+        SELECT *
+        FROM maquina
+        ORDER BY nombre
+    """)
+
+    maquinas = cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+
+    return render_template(
+        'seleccionar_estacion.html',
+        maquinas=maquinas
+    )
 
 def rol_requerido(*roles_permitidos):
     def decorador(f):
@@ -41,8 +72,13 @@ def rol_requerido(*roles_permitidos):
     return decorador
 
 @app.route('/')
+@login_requerido
 def inicio():
-    return "¡Funciona! Control de producción en marcha."
+
+    if 'maquina_id' not in session:
+        return redirect(url_for('seleccionar_estacion'))
+
+    return render_template("esperar_qr.html")
 
 @app.route('/maquinas')
 def listar_maquinas():
@@ -87,11 +123,16 @@ def nuevo_lote():
 
     return render_template('nuevo_lote.html')
 
+@app.route('/menu_produccion')
+@rol_requerido('produccion', 'admin')
+def menu_produccion():
+    return render_template('menu_produccion.html')
+
 @app.route('/registro/iniciar', methods=['POST'])
 def iniciar_trabajo():
     lote_id = request.form['lote_id']
     maquina_id = request.form['maquina_id']
-    empleado_id = request.form['empleado_id']
+    empleado_id = session['id_empleado']
 
     conn = conectar_bd()
     cursor = conn.cursor()
@@ -249,28 +290,47 @@ def dashboard():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+
     if request.method == 'POST':
+
         id_empleado = request.form['id_empleado']
         password = request.form['password']
 
         conn = conectar_bd()
         cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT * FROM empleado WHERE id_empleado = %s", (id_empleado,))
+
+        cursor.execute(
+            "SELECT * FROM empleado WHERE id_empleado = %s",
+            (id_empleado,)
+        )
+
         empleado = cursor.fetchone()
+
         cursor.close()
         conn.close()
 
         if empleado and check_password_hash(empleado['password'], password):
+
             session['id_empleado'] = empleado['id_empleado']
             session['nombre'] = empleado['nombre']
             session['rol'] = empleado['rol']
 
-            if empleado['rol'] == 'admin' or empleado['rol'] == 'direccion':
+            if empleado['rol'] == 'admin':
                 return redirect(url_for('dashboard'))
-            else:
-                return redirect(url_for('inicio'))
-        else:
-            return render_template('login.html', error="Usuario o contraseña incorrectos")
+
+            elif empleado['rol'] == 'direccion':
+                return redirect(url_for('dashboard'))
+
+            elif empleado['rol'] == 'produccion':
+                return redirect(url_for('menu_produccion'))
+
+            elif empleado['rol'] == 'operario':
+                return redirect(url_for('seleccionar_estacion'))
+
+        return render_template(
+            'login.html',
+            error="Usuario o contraseña incorrectos"
+        )
 
     return render_template('login.html')
 
