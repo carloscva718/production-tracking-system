@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión — Control de Producción</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="login-envoltorio">
+    <div class="login-caja">
+        <div class="marca-login">EMOBOK <span>· PRODUCCIÓN</span></div>
+        <span class="kicker">Acceso</span>
+        <h1 class="titulo" style="font-size:22px;margin-bottom:20px;">Iniciar sesión</h1>
+
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+
+        <form method="POST">
+            <label class="campo-label">Número de empleado</label>
+            <input type="number" name="id_empleado" required>
+
+            <label class="campo-label">Contraseña</label>
+            <input type="password" name="password" required>
+
+            <button type="submit" class="btn-login">Entrar</button>
+        </form>
+    </div>
+</body>
+</html>

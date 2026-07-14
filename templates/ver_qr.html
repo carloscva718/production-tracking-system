@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR — Lote {{ lote.numero_lote }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="cabecera">
+        <div class="marca">EMOBOK <span>· PRODUCCIÓN</span></div>
+        <div class="sesion">{{ session.nombre if session.nombre else '' }} <a href="/logout">salir</a></div>
+    </div>
+
+    <div class="contenedor" style="text-align:center;">
+        <span class="kicker">Lote creado correctamente</span>
+        <h1 class="titulo">{{ lote.numero_lote }}</h1>
+        <p class="descripcion">{{ lote.descripcion }}</p>
+        <hr class="linea">
+
+        <div class="tarjeta" style="text-align:left;">
+            <table class="procesos">
+                <tr><td>Cantidad de piezas</td><td class="tiempo">{{ lote.cantidad_piezas or '—' }}</td></tr>
+                <tr><td>Color</td><td class="tiempo">{{ lote.color or '—' }}</td></tr>
+                <tr><td>Tipo de canto</td><td class="tiempo">{{ lote.tipo_canto or '—' }}</td></tr>
+                <tr><td>Grosor</td><td class="tiempo">{{ lote.grosor or '—' }}</td></tr>
+            </table>
+        </div>
+
+        <div class="tarjeta">
+            <img src="{{ url_for('servir_qr', filename='lote_' + lote.id_lote|string + '.png') }}" style="width:220px;">
+            <p class="sin-datos" style="margin-top:16px;">Imprime este código y pégalo en el lote correspondiente</p>
+        </div>
+
+        <a href="{{ url_for('nuevo_lote') }}" class="boton btn-login" style="text-decoration:none;">Crear otro lote</a>
+    </div>
+</body>
+</html>

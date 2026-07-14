@@ -1,0 +1,252 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap');
+
+:root {
+    --negro: #141414;
+    --blanco: #ffffff;
+    --gris-fondo: #f4f2ef;
+    --gris-linea: #e2ded8;
+    --madera: #b5804c;
+    --madera-oscura: #8f6238;
+    --rojo: #b23a2e;
+    --texto-suave: #6b6660;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: var(--gris-fondo);
+    color: var(--negro);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Cabecera tipo "wordmark" industrial, igual que el estilo de titulares de Emobok */
+.cabecera {
+    background: var(--negro);
+    color: var(--blanco);
+    padding: 22px 24px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.cabecera .marca {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 900;
+    font-size: 15px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.cabecera .marca span { color: var(--madera); }
+
+.cabecera .sesion {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: #b7b2ab;
+}
+
+.cabecera .sesion a {
+    color: var(--blanco);
+    margin-left: 12px;
+    text-decoration: none;
+    border-bottom: 1px solid var(--madera);
+}
+
+.contenedor {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+}
+
+/* Etiqueta pequeña estilo "kicker", como los eyebrow labels editoriales */
+.kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--texto-suave);
+    margin-bottom: 6px;
+    display: block;
+}
+
+h1.titulo {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    font-size: 30px;
+    margin: 0 0 4px 0;
+}
+
+.descripcion {
+    color: var(--texto-suave);
+    margin-bottom: 28px;
+    font-size: 15px;
+}
+
+hr.linea {
+    border: none;
+    border-top: 1px solid var(--gris-linea);
+    margin: 24px 0;
+}
+
+/* Tarjetas */
+.tarjeta {
+    background: var(--blanco);
+    border: 1px solid var(--gris-linea);
+    border-radius: 2px;
+    padding: 24px;
+    margin-bottom: 18px;
+}
+
+.tarjeta h2 {
+    font-family: 'Archivo', sans-serif;
+    text-transform: uppercase;
+    font-size: 17px;
+    letter-spacing: 0.02em;
+    margin: 0 0 2px 0;
+}
+
+.tarjeta .meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--texto-suave);
+    margin-bottom: 16px;
+}
+
+/* Formularios */
+label.campo-label {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--texto-suave);
+    margin: 16px 0 6px;
+}
+
+select, input[type="number"], input[type="password"], input[type="text"] {
+    width: 100%;
+    padding: 13px 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    border: 1px solid var(--gris-linea);
+    border-radius: 2px;
+    background: var(--blanco);
+    color: var(--negro);
+}
+
+select:focus, input:focus {
+    outline: none;
+    border-color: var(--madera);
+}
+
+button, .boton {
+    display: block;
+    width: 100%;
+    margin-top: 18px;
+    padding: 17px;
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 14px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+}
+
+button:hover, .boton:hover { opacity: 0.85; }
+
+.btn-iniciar { background: var(--madera); color: var(--blanco); }
+.btn-finalizar { background: var(--negro); color: var(--blanco); }
+.btn-login { background: var(--negro); color: var(--blanco); }
+
+.error {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--rojo);
+    margin-top: 4px;
+}
+
+/* Tabla de procesos dentro de cada tarjeta del dashboard */
+table.procesos {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 4px;
+}
+
+table.procesos th {
+    text-align: left;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--texto-suave);
+    font-weight: 500;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--gris-linea);
+}
+
+table.procesos td {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--gris-linea);
+    font-size: 14px;
+}
+
+table.procesos td.tiempo {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--negro);
+    font-weight: 600;
+}
+
+.total-tiempo {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 2px solid var(--negro);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.total-tiempo .valor {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.sin-datos {
+    color: var(--texto-suave);
+    font-size: 14px;
+    font-style: italic;
+}
+
+/* Pantalla de login centrada */
+.login-envoltorio {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--negro);
+}
+
+.login-caja {
+    background: var(--blanco);
+    width: 320px;
+    padding: 36px 32px;
+    border-radius: 2px;
+}
+
+.login-caja .marca-login {
+    font-family: 'Archivo', sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 13px;
+    margin-bottom: 24px;
+}
+
+.login-caja .marca-login span { color: var(--madera); }

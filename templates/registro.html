@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lote {{ lote.numero_lote }} — Control de Producción</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="cabecera">
+        <div class="marca">EMOBOK <span>· PRODUCCIÓN</span></div>
+        <div class="sesion">{{ session.nombre if session.nombre else '' }} <a href="/logout">salir</a></div>
+    </div>
+
+    <div class="contenedor">
+        <span class="kicker">Lote de fabricación</span>
+        <h1 class="titulo">{{ lote.numero_lote }}</h1>
+        <p class="descripcion">{{ lote.descripcion }}</p>
+        <hr class="linea">
+
+        <div class="tarjeta">
+            <span class="kicker">Iniciar proceso</span>
+            <form action="/registro/iniciar" method="POST">
+                <input type="hidden" name="lote_id" value="{{ lote.id_lote }}">
+
+                <label class="campo-label">Máquina</label>
+                <select name="maquina_id" required>
+                    {% for maquina in maquinas %}
+                        <option value="{{ maquina.id_maquina }}">{{ maquina.nombre }}</option>
+                    {% endfor %}
+                </select>
+
+                <label class="campo-label">Tu número de empleado</label>
+                <input type="number" name="empleado_id" required>
+
+                <button type="submit" class="btn-iniciar">Iniciar trabajo</button>
+            </form>
+        </div>
+
+        <div class="tarjeta">
+            <span class="kicker">Cerrar proceso en curso</span>
+            <form action="/registro/finalizar" method="POST">
+                <input type="hidden" name="lote_id" value="{{ lote.id_lote }}">
+                <button type="submit" class="btn-finalizar">Finalizar trabajo</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

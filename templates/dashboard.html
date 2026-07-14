@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — Control de Producción</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="cabecera">
+        <div class="marca">EMOBOK <span>· PRODUCCIÓN</span></div>
+        <div class="sesion">{{ session.nombre if session.nombre else '' }} <a href="/logout">salir</a></div>
+    </div>
+
+    <div class="contenedor">
+        <span class="kicker">Panel de dirección</span>
+        <h1 class="titulo">Dashboard</h1>
+        <p class="descripcion">Tiempo y procesos por lote de fabricación</p>
+        <hr class="linea">
+
+        {% for lote in lotes %}
+        <div class="tarjeta">
+            <h2>Lote {{ lote.numero_lote }}</h2>
+            <p class="meta">{{ lote.descripcion }} · {{ lote.num_procesos }} proceso(s)</p>
+
+            {% if lote.procesos %}
+            <table class="procesos">
+                <tr><th>Proceso</th><th>Tiempo</th></tr>
+                {% for proceso in lote.procesos %}
+                <tr>
+                    <td>{{ proceso.maquina }}</td>
+                    <td class="tiempo">{{ proceso.tiempo }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <div class="total-tiempo">
+                <span class="kicker" style="margin:0;">Tiempo total</span>
+                <span class="valor">{{ lote.tiempo_total }}</span>
+            </div>
+            {% else %}
+            <p class="sin-datos">Sin procesos registrados todavía</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

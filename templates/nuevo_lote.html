@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo lote — Control de Producción</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="cabecera">
+        <div class="marca">EMOBOK <span>· PRODUCCIÓN</span></div>
+        <div class="sesion">{{ session.nombre if session.nombre else '' }} <a href="/logout">salir</a></div>
+    </div>
+
+    <div class="contenedor">
+        <span class="kicker">Alta de pedido</span>
+        <h1 class="titulo">Nuevo lote</h1>
+        <p class="descripcion">Introduce los datos del pedido para generar su código QR</p>
+        <hr class="linea">
+
+        <div class="tarjeta">
+            <form method="POST">
+                <label class="campo-label">Número de lote</label>
+                <input type="text" name="numero_lote" required>
+
+                <label class="campo-label">Descripción (modelo)</label>
+                <input type="text" name="descripcion">
+
+                <label class="campo-label">Cantidad de piezas</label>
+                <input type="number" name="cantidad_piezas">
+
+                <label class="campo-label">Color</label>
+                <input type="text" name="color">
+
+                <label class="campo-label">Tipo de canto</label>
+                <input type="text" name="tipo_canto">
+
+                <label class="campo-label">Grosor</label>
+                <input type="text" name="grosor">
+
+                <button type="submit" class="btn-iniciar">Crear lote y generar QR</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
